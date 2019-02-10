@@ -1,0 +1,45 @@
+version: '2'
+services:
+  php: 
+    build: ./docker
+    container_name: php
+    volumes:
+      - ./code:/var/www/code
+    expose:
+      - '9000'
+    networks:
+      main:
+        aliases:
+          - docker-php
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    volumes_from:
+      - php
+    ports:
+      - 80:80
+    networks:
+      main:
+        aliases:
+          - docker-webserver
+
+  db-mysql:
+    image: mysql:5.7
+    container_name: db-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=youruser
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DATABASE=yourdatabase
+    ports:
+      - 3306:3306
+    networks:
+      main:
+        aliases:
+          - docker-db-mysql
+
+networks:
+  main:
