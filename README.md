@@ -2,7 +2,7 @@
 
 That's my solution to work with Docker and Laravel using the minimum resources possible to be as lighter as possible.
 
-As I had problems to make this work because to connect on MySQL container was easy, but then when the PHP container needed to use Guzzle for example, then was getting ***'cURL error 7'***.
+As I had problems to make this work because to connect on MySQL container was easy, but then when the PHP container needed to use Guzzle for example, then was getting '**cURL error 7**'.
 
 The best solution I found was create a network and use alias in the application to connect to the correct container.
 
